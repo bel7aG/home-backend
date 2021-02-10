@@ -47,6 +47,8 @@ export class PaymentService {
 
   async update(id: string, input: PaymentUpdateInput): Promise<PaymentType> {
     try {
+      if (input.time) input.time = format(new Date(input.time), `PPpp`)
+
       const chosenPayment = await this.paymentModel
         .findByIdAndUpdate(
           id,
