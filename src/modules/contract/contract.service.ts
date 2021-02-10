@@ -5,7 +5,6 @@ import { Model } from 'mongoose'
 import { ContractType } from './type/contract.type'
 import { ContractDoc } from './interfaces/contract.interface'
 import { PaymentService } from './../payment/payment.service'
-import { ContextType } from 'react'
 
 @Injectable()
 export class ContractService {
@@ -17,9 +16,13 @@ export class ContractService {
   async find(id?: string): Promise<ContractType | ContractType[]> {
     try {
       if (id) {
-        return await this.contractModel.findById(id).populate('payments')
+        const contract = await this.contractModel.findById(id).populate('payments')
+
+        return contract
       } else {
-        return await this.contractModel.find().populate('payments')
+        const contracts = await this.contractModel.find().populate('payments')
+
+        return contracts
       }
     } catch {
       throw new RequestTimeoutException(`Something went wrong`)

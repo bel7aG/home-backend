@@ -8,7 +8,7 @@ export class PaymentType {
   readonly id: string | typeof ID
 
   @Field(() => String)
-  contractId: string
+  contractId: IContract
 
   @Field(() => String)
   description: string

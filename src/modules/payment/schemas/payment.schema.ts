@@ -1,19 +1,18 @@
 import * as mongoose from 'mongoose'
 
-export const PaymentSchema = new mongoose.Schema({
-  contractId: { type: mongoose.Schema.Types.ObjectId, ref: 'Contract' },
+export const PaymentSchema = new mongoose.Schema(
+  {
+    contractId: { type: mongoose.Schema.Types.ObjectId, ref: 'Contract' },
 
-  description: String,
+    description: String,
 
-  value: Number,
+    value: Number,
 
-  isImported: { type: Boolean, default: false },
+    isImported: { type: Boolean, default: false },
 
-  time: Date,
+    time: { type: Date, default: Date.now },
 
-  createdAt: Date,
-
-  updatedAt: Date,
-
-  isDeleted: { type: Boolean, default: false }
-})
+    isDeleted: { type: Boolean, default: false }
+  },
+  { timestamps: true }
+)

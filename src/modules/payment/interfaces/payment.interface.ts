@@ -1,10 +1,11 @@
 import { ID } from '@nestjs/graphql'
 import { Document } from 'mongoose'
+import { IContract } from '../../contract/interfaces/contract.interface'
 
 export interface PaymentDoc extends Document {
   readonly id: string | typeof ID
 
-  contractId: string
+  contractId: IContract
 
   description: string
 
@@ -24,7 +25,7 @@ export interface PaymentDoc extends Document {
 export interface IPayment {
   readonly id?: string | typeof ID
 
-  contractId?: string
+  contractId?: IContract
 
   description?: string
 

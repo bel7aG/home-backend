@@ -11,6 +11,8 @@ type ContractType {
 type Mutation {
   createContract: ContractType!
   createPayment(input: PaymentCreateInput!): PaymentType!
+  updatePayment(input: PaymentUpdateInput!, id: String!): PaymentType!
+  deletePayment(id: String!): PaymentType!
 }
 
 input PaymentCreateInput {
@@ -32,6 +34,13 @@ type PaymentType {
   createdAt: String!
   updatedAt: String!
   isDeleted: Boolean!
+}
+
+input PaymentUpdateInput {
+  description: String!
+  value: Float!
+  time: String
+  isImported: Boolean
 }
 
 type Query {
