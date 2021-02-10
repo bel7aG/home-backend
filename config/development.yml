@@ -1,0 +1,7 @@
+server:
+  ip: 127.0.0.1
+  port: 8000
+  version: 'v1'
+
+mongoDB:
+  uri: 'mongodb+srv://bel7aG:belhassen123@cleverenv.zsr5e.mongodb.net/home?retryWrites=true&w=majority'
