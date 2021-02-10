@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable, RequestTimeoutException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 
@@ -9,8 +9,16 @@ import { ContractDoc, IContract } from './interfaces/contract.interface'
 export class ContractService {
   constructor(@InjectModel('Contract') private contractModel: Model<ContractDoc>) {}
 
-  async findAll(): Promise<string> {
-    return 'Hello'
+  async find(id?: string): Promise<ContractType | ContractType[]> {
+    try {
+      if (id) {
+        return await this.contractModel.findById(id)
+      } else {
+        return await this.contractModel.find()
+      }
+    } catch {
+      throw new RequestTimeoutException(`Something went wrong`)
+    }
   }
 
   async create(): Promise<ContractType> {
@@ -18,7 +26,7 @@ export class ContractService {
       const contract = new this.contractModel()
       return await contract.save()
     } catch {
-      throw new BadRequestException(`Something went wrong`)
+      throw new RequestTimeoutException(`Something went wrong`)
     }
   }
 }

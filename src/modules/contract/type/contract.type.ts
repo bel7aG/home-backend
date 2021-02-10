@@ -8,6 +8,9 @@ export class ContractType {
   @Field(() => ID)
   readonly id: string | typeof ID
 
+  @Field(() => Number)
+  readonly sum: number
+
   @Field(() => [PaymentType])
   payments: IPayment[]
 }

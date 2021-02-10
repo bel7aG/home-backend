@@ -4,6 +4,7 @@
 
 type ContractType {
   id: ID!
+  sum: Float!
   payments: [PaymentType!]!
 }
 
@@ -24,6 +25,7 @@ type PaymentType {
 }
 
 type Query {
-  contracts: String!
+  contracts: [ContractType!]
+  contract(id: String!): ContractType
   payments: String!
 }

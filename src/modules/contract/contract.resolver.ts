@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 
 import { ContractService } from './contract.service'
 import { ContractType } from './type/contract.type'
@@ -7,9 +7,14 @@ import { ContractType } from './type/contract.type'
 export class ContractResolver {
   constructor(private readonly contractService: ContractService) {}
 
-  @Query(() => String)
+  @Query(() => [ContractType], { nullable: true })
   async contracts() {
-    return this.contractService.findAll()
+    return this.contractService.find()
+  }
+
+  @Query(() => ContractType, { nullable: true })
+  async contract(@Args('id') id: string) {
+    return this.contractService.find(id)
   }
 
   @Mutation(() => ContractType)
