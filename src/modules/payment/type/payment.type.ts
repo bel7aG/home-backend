@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
+import { ContractType } from '../../contract/type/contract.type'
 import { IContract } from '../../contract/interfaces/contract.interface'
 
 @ObjectType()
@@ -6,8 +7,8 @@ export class PaymentType {
   @Field(() => ID)
   readonly id: string | typeof ID
 
-  @Field(() => ID)
-  contractId: IContract
+  @Field(() => String)
+  contractId: string
 
   @Field(() => String)
   description: string
@@ -16,16 +17,16 @@ export class PaymentType {
   value: number
 
   @Field(() => String)
-  time: object
+  time: string
 
   @Field(() => Boolean)
   isImported: boolean
 
-  @Field(() => ID)
-  createdAt: Date
+  @Field(() => String)
+  createdAt: string
 
   @Field(() => String)
-  updatedAt: object
+  updatedAt: string
 
   @Field(() => Boolean)
   isDeleted: boolean

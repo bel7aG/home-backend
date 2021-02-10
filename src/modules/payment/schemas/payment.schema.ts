@@ -7,9 +7,9 @@ export const PaymentSchema = new mongoose.Schema({
 
   value: Number,
 
-  time: Date,
-
   isImported: { type: Boolean, default: false },
+
+  time: Date,
 
   createdAt: Date,
 

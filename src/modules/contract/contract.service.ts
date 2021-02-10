@@ -1,20 +1,25 @@
-import { Injectable, RequestTimeoutException } from '@nestjs/common'
+import { forwardRef, Inject, Injectable, RequestTimeoutException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 
 import { ContractType } from './type/contract.type'
-import { ContractDoc, IContract } from './interfaces/contract.interface'
+import { ContractDoc } from './interfaces/contract.interface'
+import { PaymentService } from './../payment/payment.service'
+import { ContextType } from 'react'
 
 @Injectable()
 export class ContractService {
-  constructor(@InjectModel('Contract') private contractModel: Model<ContractDoc>) {}
+  constructor(
+    @InjectModel('Contract') public contractModel: Model<ContractDoc>,
+    @Inject(forwardRef(() => PaymentService)) private readonly paymentService: PaymentService
+  ) {}
 
   async find(id?: string): Promise<ContractType | ContractType[]> {
     try {
       if (id) {
-        return await this.contractModel.findById(id)
+        return await this.contractModel.findById(id).populate('payments')
       } else {
-        return await this.contractModel.find()
+        return await this.contractModel.find().populate('payments')
       }
     } catch {
       throw new RequestTimeoutException(`Something went wrong`)

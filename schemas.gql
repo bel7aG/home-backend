@@ -10,16 +10,26 @@ type ContractType {
 
 type Mutation {
   createContract: ContractType!
+  createPayment(input: PaymentCreateInput!): PaymentType!
+}
+
+input PaymentCreateInput {
+  contractId: String!
+  description: String!
+  value: Float!
+  time: String
+  isImported: Boolean
+  isDeleted: Boolean
 }
 
 type PaymentType {
   id: ID!
-  contractId: ID!
+  contractId: String!
   description: String!
   value: Float!
   time: String!
   isImported: Boolean!
-  createdAt: ID!
+  createdAt: String!
   updatedAt: String!
   isDeleted: Boolean!
 }
