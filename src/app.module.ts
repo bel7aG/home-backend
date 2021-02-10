@@ -3,7 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
 import * as config from 'config'
 
-import { ContractModule } from './contract/contract.module'
+import { ContractModule } from './modules/contract/contract.module'
+import { PaymentModule } from './modules/payment/payment.module'
 
 const MONGO = config.get('mongoDB')
 
@@ -29,7 +30,8 @@ const MONGO = config.get('mongoDB')
       path: '/'
     }),
 
-    ContractModule
+    ContractModule,
+    PaymentModule
   ]
 })
 export class AppModule {}

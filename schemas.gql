@@ -2,6 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ContractType {
+  id: ID!
+  payments: [PaymentType!]!
+}
+
+type Mutation {
+  createContract: ContractType!
+}
+
+type PaymentType {
+  id: ID!
+  contractId: ID!
+  description: String!
+  value: Float!
+  time: String!
+  isImported: Boolean!
+  createdAt: ID!
+  updatedAt: String!
+  isDeleted: Boolean!
+}
+
 type Query {
   contracts: String!
+  payments: String!
 }
