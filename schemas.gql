@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input ContractFetchInput {
+  contractId: String!
+  startDate: String
+  endDate: String
+}
+
 type ContractType {
   id: ID!
   sum: Float!
@@ -37,14 +43,14 @@ type PaymentType {
 }
 
 input PaymentUpdateInput {
-  description: String!
-  value: Float!
+  description: String
+  value: Float
   time: String
   isImported: Boolean
 }
 
 type Query {
   contracts: [ContractType!]
-  contract(id: String!): ContractType
+  contract(input: ContractFetchInput!): ContractType
   payments: String!
 }

@@ -24,10 +24,10 @@ export class PaymentCreateInput {
 
 @InputType()
 export class PaymentUpdateInput {
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   description?: string
 
-  @Field(() => Number)
+  @Field(() => Number, { nullable: true })
   value?: number
 
   @Field(() => String, { nullable: true })
@@ -35,16 +35,4 @@ export class PaymentUpdateInput {
 
   @Field(() => Boolean, { nullable: true })
   isImported?: boolean
-}
-
-@InputType()
-export class PaymentFetchInput {
-  @Field(() => String)
-  contractId: string
-
-  @Field(() => String, { nullable: true })
-  startDate?: string
-
-  @Field(() => String, { nullable: true })
-  endDate?: string
 }

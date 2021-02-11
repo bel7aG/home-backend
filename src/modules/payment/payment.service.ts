@@ -12,7 +12,7 @@ import { IContract } from '../contract/interfaces/contract.interface'
 @Injectable()
 export class PaymentService {
   constructor(
-    @InjectModel('Payment') private paymentModel: Model<PaymentDoc>,
+    @InjectModel('Payment') public paymentModel: Model<PaymentDoc>,
     @Inject(forwardRef(() => ContractService)) private readonly contractService: ContractService
   ) {}
 
@@ -74,9 +74,15 @@ export class PaymentService {
   }
 
   async delete(id: string): Promise<PaymentType> {
-    const chosenPayment = await this.paymentModel.findByIdAndUpdate(id, {
-      isDeleted: true
-    })
+    const chosenPayment = await this.paymentModel.findByIdAndUpdate(
+      id,
+      {
+        isDeleted: true
+      },
+      {
+        new: true
+      }
+    )
 
     return chosenPayment
   }
