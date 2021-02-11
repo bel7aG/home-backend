@@ -12,5 +12,5 @@ export class ContractType {
   readonly sum: number
 
   @Field(() => [PaymentType])
-  payments: IPayment[]
+  items: IPayment[]
 }

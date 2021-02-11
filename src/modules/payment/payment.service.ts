@@ -33,7 +33,7 @@ export class PaymentService {
 
         await this.contractService.contractModel.findByIdAndUpdate(input.contractId, {
           sum: contract.sum += payment.value,
-          $push: { payments: payment }
+          $push: { items: payment }
         })
 
         return payment
@@ -45,32 +45,43 @@ export class PaymentService {
     }
   }
 
+  async findOne(id: string) {
+    const payment: any = await this.paymentModel.findById(id)
+
+    if (payment) return payment
+    else throw new NotFoundException(`Payment not found.`)
+  }
+
   async update(id: string, input: PaymentUpdateInput): Promise<PaymentType> {
-    try {
-      if (input.time) input.time = format(new Date(input.time), `PPpp`)
+    const payment = await this.findOne(id)
+    if (input.time) input.time = format(new Date(input.time), `PPpp`)
 
-      const chosenPayment = await this.paymentModel
-        .findByIdAndUpdate(
-          id,
-          {
-            ...input
-          },
-          async (_, payment) => {
-            if (input.value !== payment.value) {
-              await this.contractService.contractModel.findByIdAndUpdate((chosenPayment.contractId as IContract).id, {
-                $inc: {
-                  sum: input.value
-                }
-              })
-            }
-          }
-        )
-        .populate('contractId')
+    const chosenPayment = await this.paymentModel
+      .findByIdAndUpdate(
+        id,
+        {
+          ...input
+        },
+        {
+          new: true
+        }
+      )
+      .populate('contractId')
 
-      return chosenPayment
-    } catch {
-      throw new NotFoundException(`Contract not found.`)
+    if (input.value !== payment.value) {
+      await this.contractService.contractModel.findByIdAndUpdate(
+        (chosenPayment.contractId as IContract).id,
+        {},
+        (_, doc) => {
+          doc.sum -= payment.value
+          doc.sum += input.value
+
+          doc.save()
+        }
+      )
     }
+
+    return chosenPayment
   }
 
   async delete(id: string): Promise<PaymentType> {

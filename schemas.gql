@@ -11,7 +11,7 @@ input ContractFetchInput {
 type ContractType {
   id: ID!
   sum: Float!
-  payments: [PaymentType!]!
+  items: [PaymentType!]!
 }
 
 type Mutation {

@@ -2,13 +2,6 @@ server:
   ip: 127.0.0.1
   port: 8001
   version: 'v1'
-  upload:
-    maximum: 5mb
 
 mongoDB:
   uri: ''
-
-cloudinary:
-  cloud_name: ''
-  api_key: ''
-  api_secret: ''

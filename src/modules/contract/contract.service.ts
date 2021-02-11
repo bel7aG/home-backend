@@ -51,7 +51,7 @@ export class ContractService {
         .findById(isObject ? (input as ContractFetchInput).contractId : (input as string))
         .lean()
 
-      contract.payments = payments.map(payment => ({
+      contract.items = payments.map(payment => ({
         ...payment,
         id: payment._id,
         ...this.converTime(payment)
