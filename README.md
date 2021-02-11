@@ -8,8 +8,6 @@
 
 <p>The goal of this challenge is to build an API for updating and fetching data about a tenant's payment history.</p>
 
-<p>Deployed on Vercel.</p>
-
 ## Install
 
 - Yarn: **yarn** or **yarn install**
