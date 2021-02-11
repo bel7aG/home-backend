@@ -8,11 +8,6 @@ import { ContractFetchInput } from './input/contract.input'
 export class ContractResolver {
   constructor(private readonly contractService: ContractService) {}
 
-  @Query(() => [ContractType], { nullable: true })
-  async contracts() {
-    return this.contractService.find()
-  }
-
   @Query(() => ContractType, { nullable: true })
   async contract(@Args('input') input: ContractFetchInput) {
     return this.contractService.find(input)

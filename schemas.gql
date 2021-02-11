@@ -50,7 +50,6 @@ input PaymentUpdateInput {
 }
 
 type Query {
-  contracts: [ContractType!]
   contract(input: ContractFetchInput!): ContractType
   payments: String!
 }
